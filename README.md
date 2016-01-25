@@ -55,7 +55,7 @@ Then go to your Plugins screen and click __Activate__.
 
 ## Usage
 
-A new meta box titled "Custom Loop Settings" will be added to the Edit Page screen. Enter parameters to modify the custom loop.
+Select the "Custom Loop" template from Page Attributes drop down menu with the Edit Page screen. A new meta box titled "Custom Loop Settings" will be added to the Edit Page screen. Enter parameters to modify the custom loop.
 
 Note: Since this is the initial release of the plugin I discourage using it on a production website until it has been thoroughly tested.
 
