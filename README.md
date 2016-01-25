@@ -4,7 +4,7 @@ Genesis Page Templates is a plugin created for the Genesis Framework which adds 
 
 ## Description
 
-Genesis Page Templates takes advantage of a [new filter](http://schema.org/docs/full.html) introduced in WordPress 4.4.0. The first page template introduced in Genesis Page Templates is a custom loop page template which allows a user to conveniently modify the loop from the page editor by filling out custom fields in a meta box.
+Genesis Page Templates takes advantage of a [new filter](https://core.trac.wordpress.org/changeset/34995/) introduced in WordPress 4.4.0. The first page template introduced in Genesis Page Templates is a custom loop page template which allows a user to conveniently modify the loop from the page editor by filling out custom fields in a meta box.
 
 
 ## Custom Loop Settings
