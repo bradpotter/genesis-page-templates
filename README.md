@@ -55,13 +55,13 @@ Then go to your Plugins screen and click __Activate__.
 
 ## Usage
 
-Activate the plugin. A new meta box titled "Custom Loop Settings" will be added to the Edit Page screen. Select the "Custom Loop" template from Page Attributes drop down menu with the Edit Page screen. Enter parameters in the Custom Loop Settings meta box to modify the custom loop. 
+Activate the Genesis Page Templates plugin. A new meta box titled "Custom Loop Settings" will be added to the Edit Page screen below the content editor. Select the "Custom Loop" template from Page Attributes drop down menu within the Edit Page screen. Enter parameters in the Custom Loop Settings meta box to modify the custom loop. 
 
 Note: Since this is the initial release of the plugin I discourage using it on a production website until it has been thoroughly tested.
 
 ## Future Development
 
-Introduce additional page templates. Update post type, taxonomy and taxonomy terms to accept multiple parameters. Add additional setting options.
+Introduce additional page templates. Update post type, taxonomy and taxonomy terms to accept multiple parameters. Add additional settings options. Change some settings options to drop down menus.
 
 ## Credits
 
