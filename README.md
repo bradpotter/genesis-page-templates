@@ -9,17 +9,17 @@ Genesis Page Templates takes advantage of a [new filter](https://core.trac.wordp
 
 ## Custom Loop Settings
 
-### Post Type (Enter post, page or custom post type) 
+* Post Type (Enter post, page or custom post type) 
 
-### Taxonomy (Enter taxonomy, example: category, post_tag, etc.)
+* Taxonomy (Enter taxonomy, example: category, post_tag, etc.)
 
-### Taxonomy Term (Enter taxonomy term, example: featured, blog, etc. )
+* Taxonomy Term (Enter taxonomy term, example: featured, blog, etc. )
 
-### Post Per Page (Enter number of posts to display)
+* Post Per Page (Enter number of posts to display)
 
-### Order By (Enter author, title, name, type, date, rand, etc.)
+* Order By (Enter author, title, name, type, date, rand, etc.)
 
-### Order (Enter ASC or DESC)
+* Order (Enter ASC or DESC)
 
 
 ## Requirements
