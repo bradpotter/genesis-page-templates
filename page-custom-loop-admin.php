@@ -27,7 +27,7 @@
  *
  * Allow the user to set Custom Loop Settings on a per-page basis.
  *
- * If the post type does not support genesis-custom-loop, then the Custom Loop Options meta box will not be added.
+ * If the post type does not support genesis-page-templates, then the Custom Loop Options meta box will not be added.
  *
  * @since 1.0.0
  *
