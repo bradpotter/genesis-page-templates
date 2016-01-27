@@ -12,7 +12,7 @@
  * Plugin Name: Genesis Page Templates
  * Plugin URI:  http://www.bradpotter.com/plugins/genesis-page-templates
  * Description: Adds page templates to the Genesis Framework.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      Brad Potter
  * Author URI:  http://www.bradpotter.com/
  * License:     GPL-2.0+
@@ -51,6 +51,10 @@ add_action( 'genesis_init', 'genesis_page_templates_init', 15 );
  */
 function genesis_page_templates_init() {
 		
-		require_once plugin_dir_path( __FILE__ ) . '/genesis-page-templates-functions.php';
-		require_once plugin_dir_path( __FILE__ ) . '/page-custom-loop-admin.php';
+	require_once plugin_dir_path( __FILE__ ) . '/genesis-page-templates-functions.php';
+	
+	if ( is_admin() ) {
+	
+		require_once plugin_dir_path( __FILE__ ) . '/genesis-page-templates-admin.php';
+	}
 }

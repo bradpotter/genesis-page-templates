@@ -9,19 +9,7 @@
  * @link       http://bradpotter.com/plugins/genesis-page-templates
  */
  
- add_action( 'genesis_init', 'custom_loop_post_type_support', 5 );
- /**
-  * Initialize post type support.
-  * 
-  * @since 1.0.0
-  */
- function custom_loop_post_type_support() {
- 	
- 	add_post_type_support( 'page', array( 'genesis-page-templates' ) );
- 	
- }
- 
- add_action( 'admin_menu', 'custom_loop_add_inpost_meta_box' );
+add_action( 'add_meta_boxes', 'custom_loop_add_inpost_meta_box' );
 /**
  * Register a new meta box to the page edit screen.
  *
@@ -34,12 +22,12 @@
  * @see custom_loop_inpost_meta_box() Generates the content in the meta box.
  */
 function custom_loop_add_inpost_meta_box() {
-
-	foreach ( (array) get_post_types( array( 'public' => true ) ) as $type ) {
-		if ( post_type_supports( $type, 'genesis-page-templates' ) )
-			add_meta_box( 'custom_loop_inpost_meta_box', __( 'Custom Loop Settings', 'genesis-page-templates' ), 'custom_loop_inpost_meta_box', $type, 'normal', 'high' );
+	
+	$page_template = get_post_meta( get_the_ID(), '_wp_page_template', true );
+		
+	if ( 'custom_loop' == $page_template ) {
+		add_meta_box( 'custom_loop_inpost_meta_box', __( 'Custom Loop Settings', 'genesis-page-templates' ), 'custom_loop_inpost_meta_box', 'page', 'normal', 'high' );
 	}
-
 }
 
 /**
@@ -54,7 +42,7 @@ function custom_loop_inpost_meta_box() {
 	?>
 
 	<p><label for="gcl_post_type"><b><?php _e( 'Post Type', 'genesis-page-templates' ); ?></b> <?php _e( '(Enter post, page or custom post type)', 'genesis-page-templates' ); ?></label></p>
-	<p><input class="large-text" type="text" name="genesis_custom_loop[_gcl_post_type]" id="gcl_post_type" placeholder="post" value="<?php echo esc_attr( genesis_get_custom_field( '_gcl_post_type' ) ); ?>" /></p>
+	<p><input class="large-text" type="text" name="genesis_custom_loop[_gcl_post_type]" id="gcl_post_type" placeholder="" value="<?php echo esc_attr( genesis_get_custom_field( '_gcl_post_type' ) ); ?>" /></p>
 
 	<p><label for="gcl_taxonomy"><b><?php _e( 'Taxonomy', 'genesis-page-templates' ); ?></b> <?php _e( '(Enter taxonomy, example: category, post_tag, etc.)', 'genesis-page-templates' ); ?></label></p>
 	<p><input class="large-text" type="text" name="genesis_custom_loop[_gcl_taxonomy]" id="gcl_taxonomy" placeholder="" value="<?php echo esc_attr( genesis_get_custom_field( '_gcl_taxonomy' ) ); ?>" /></p>

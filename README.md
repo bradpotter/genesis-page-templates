@@ -1,10 +1,10 @@
 # Genesis Page Templates
 
-Genesis Page Templates is a plugin created for the Genesis Framework which adds additional page templates to the Genesis Framework.
+Genesis Page Templates is a plugin which adds additional page templates to the Genesis Framework.
 
 ## Description
 
-Genesis Page Templates takes advantage of a [new filter](https://core.trac.wordpress.org/changeset/34995/) introduced in WordPress 4.4.0. The first page template introduced in Genesis Page Templates is a custom loop page template which allows a user to conveniently modify the loop from the page editor by entering settings into a meta box.
+Genesis Page Templates takes advantage of a [new filter](https://core.trac.wordpress.org/changeset/34995/) introduced in WordPress 4.4.0. The first page template included in Genesis Page Templates is a custom loop page template which allows a user to conveniently modify the loop by selecting the "Custom Loop" page template in the page editor and then entering Custom Loop settings into a meta box.
 
 
 ## Custom Loop Settings
@@ -55,7 +55,7 @@ Then go to your Plugins screen and click __Activate__.
 
 ## Usage
 
-Activate the Genesis Page Templates plugin. A new meta box titled "Custom Loop Settings" will be added to the Edit Page screen below the content editor. Select the "Custom Loop" template from Page Attributes drop down menu within the Edit Page screen. Enter parameters in the Custom Loop Settings meta box to modify the custom loop. 
+Activate the Genesis Page Templates plugin. Choose a page to edit. When in the "Edit Page" screen, select the "Custom Loop" template from Page Attributes drop down menu and click the Update button. A new meta box titled "Custom Loop Settings" will be added to the Edit Page screen below the content editor.  Enter the appropriate parameters in the Custom Loop Settings meta box to modify the custom loop and click the Update button. View page to see the results of your custom loop.
 
 Note: Since this is the initial release of the plugin I discourage using it on a production website until it has been thoroughly tested.
 

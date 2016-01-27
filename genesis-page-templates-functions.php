@@ -34,6 +34,6 @@ function genesis_page_templates_include_page_template() {
 		
 	if ( 'custom_loop' == $page_template ) {
 		remove_action( 'genesis_loop', 'genesis_do_loop' );
-		require_once plugin_dir_path( __FILE__ ) . '/templates/page-custom-loop.php';
+		require_once plugin_dir_path( __FILE__ ) . '/templates/gpt-custom-loop.php';
 	}
 }
