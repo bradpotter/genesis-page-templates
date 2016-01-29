@@ -17,7 +17,7 @@ add_filter( 'theme_page_templates', 'genesis_page_templates_add_page_template' )
  */
 function genesis_page_templates_add_page_template( $page_templates ) {
 		
-	$page_templates[custom_loop] = __( 'Custom Loop', 'genesis-page-templates' );
+	$page_templates['custom_loop'] = __( 'Custom Loop', 'genesis-page-templates' );
 		
 	return $page_templates;
 }
