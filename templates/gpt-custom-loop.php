@@ -13,27 +13,27 @@ add_action( 'genesis_loop', 'genesis_page_templates_custom_loop' );
 /**
  * Genesis Page Templates Custom Loop.
  * 
- * @since 1.0.0
+ * @since 1.0.1
  */
 function genesis_page_templates_custom_loop() {
- 
-    global $paged;
-    global $query_args;
-    
-    $gcl_post_type = esc_attr( genesis_get_custom_field( '_gcl_post_type' ) );
+
+	$gcl_post_type = esc_attr( genesis_get_custom_field( '_gcl_post_type' ) );
     $gcl_taxonomy = esc_attr( genesis_get_custom_field( '_gcl_taxonomy' ) );
     $gcl_tax_term = esc_attr( genesis_get_custom_field( '_gcl_tax_term' ) );
     $gcl_posts_per_page = esc_attr( genesis_get_custom_field( '_gcl_posts_per_page' ) );
     $gcl_order_by = esc_attr( genesis_get_custom_field( '_gcl_order_by' ) );
     $gcl_order = esc_attr( genesis_get_custom_field( '_gcl_order' ) );
+    $paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 	
-	$args = array(
-		'post_type'        => $gcl_post_type,
-		'posts_per_page'   => $gcl_posts_per_page,
-		'orderby'          => $gcl_order_by,
-		'order'            => $gcl_order,
-		'paged'            => $paged,
-	);
+	$query_args = wp_parse_args(
+		array(
+			'post_type'        => $gcl_post_type,
+			'posts_per_page'   => $gcl_posts_per_page,
+			'orderby'          => $gcl_order_by,
+			'order'            => $gcl_order,
+			'paged'            => $paged,
+			)
+		);
 	
 	if ( ! empty( $gcl_tax_term ) ) {
 		$terms = empty( $gcl_tax_term ) ? get_terms( $gcl_taxonomy ) : $gcl_tax_term;
@@ -42,11 +42,9 @@ function genesis_page_templates_custom_loop() {
 				'taxonomy' => $gcl_taxonomy,
 				'field'    => 'slug',
 				'terms'    => $terms,
-			),
-		);
-	
+				)
+			);
 	}
 	
-	genesis_custom_loop( wp_parse_args( $query_args, $args ) );
-    
+	genesis_custom_loop( $query_args );
 }
