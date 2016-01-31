@@ -18,12 +18,12 @@ add_action( 'genesis_loop', 'genesis_page_templates_custom_loop' );
 function genesis_page_templates_custom_loop() {
 
 	$gcl_post_type = esc_attr( genesis_get_custom_field( '_gcl_post_type' ) );
-    $gcl_taxonomy = esc_attr( genesis_get_custom_field( '_gcl_taxonomy' ) );
-    $gcl_tax_term = esc_attr( genesis_get_custom_field( '_gcl_tax_term' ) );
-    $gcl_posts_per_page = esc_attr( genesis_get_custom_field( '_gcl_posts_per_page' ) );
-    $gcl_order_by = esc_attr( genesis_get_custom_field( '_gcl_order_by' ) );
-    $gcl_order = esc_attr( genesis_get_custom_field( '_gcl_order' ) );
-    $paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+	$gcl_taxonomy = esc_attr( genesis_get_custom_field( '_gcl_taxonomy' ) );
+	$gcl_tax_term = esc_attr( genesis_get_custom_field( '_gcl_tax_term' ) );
+	$gcl_posts_per_page = esc_attr( genesis_get_custom_field( '_gcl_posts_per_page' ) );
+	$gcl_order_by = esc_attr( genesis_get_custom_field( '_gcl_order_by' ) );
+	$gcl_order = esc_attr( genesis_get_custom_field( '_gcl_order' ) );
+	$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 	
 	$query_args = wp_parse_args(
 		array(
