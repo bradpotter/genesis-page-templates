@@ -1,6 +1,6 @@
 # Genesis Page Templates
 
-Genesis Page Templates is a plugin which adds additional unique page templates to the Genesis Framework.
+Genesis Page Templates is a plugin that adds additional unique page templates to the Genesis Framework.
 
 ## Description
 
