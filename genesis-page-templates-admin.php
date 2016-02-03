@@ -8,8 +8,8 @@
  * @license    GPL-2.0+
  * @link       http://bradpotter.com/plugins/genesis-page-templates
  */
- 
-add_action( 'add_meta_boxes', 'custom_loop_add_inpost_meta_box' );
+
+add_action( 'add_meta_boxes', 'custom_loop_add_inpost_meta_box', 10, 2 );
 /**
  * Register a new meta box to the page edit screen.
  *
@@ -21,12 +21,20 @@ add_action( 'add_meta_boxes', 'custom_loop_add_inpost_meta_box' );
  *
  * @see custom_loop_inpost_meta_box() Generates the content in the meta box.
  */
-function custom_loop_add_inpost_meta_box() {
-	
-	$page_template = get_post_meta( get_the_ID(), '_wp_page_template', true );
-		
-	if ( 'custom_loop' == $page_template ) {
-		add_meta_box( 'custom_loop_inpost_meta_box', __( 'Custom Loop Settings', 'genesis-page-templates' ), 'custom_loop_inpost_meta_box', 'page', 'normal', 'high' );
+function custom_loop_add_inpost_meta_box( $post_type, $post ) {
+	if ( 'page' !== $post_type ) {
+		return false;
+	}
+
+	if ( 'custom_loop' === get_post_meta( $post->ID, '_wp_page_template', true ) ) {
+		add_meta_box(
+			'custom_loop_inpost_meta_box',
+			__( 'Custom Loop Settings', 'genesis-page-templates' ),
+			'custom_loop_inpost_meta_box',
+			'page',
+			'normal',
+			'high'
+		);
 	}
 }
 
@@ -58,7 +66,7 @@ function custom_loop_inpost_meta_box() {
 
 	<p><label for="gcl_order"><b><?php _e( 'Order', 'genesis-page-templates' ); ?></b> <?php _e( '(Enter ASC or DESC)', 'genesis-page-templates' ); ?></label></p>
 	<p><input class="large-text" type="text" name="genesis_custom_loop[_gcl_order]" id="gcl_order" placeholder="" value="<?php echo esc_attr( genesis_get_custom_field( '_gcl_order' ) ); ?>" /></p>
-	
+
 	<p><?php _e( 'See the <a href="https://codex.wordpress.org/Class_Reference/WP_Query#Parameters"/>WordPress Codex</a> for a complete list of parameters to use.', 'genesis-page-templates' ); ?></p>
 
 	<?php
