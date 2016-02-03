@@ -9,7 +9,7 @@
  * @link       http://bradpotter.com/plugins/genesis-page-templates
  */
 
-add_action( 'add_meta_boxes', 'custom_loop_add_inpost_meta_box', 10, 2 );
+add_action( 'add_meta_boxes', 'genesis_page_templates_add_inpost_meta_box', 10, 2 );
 /**
  * Register a new meta box to the page edit screen.
  *
@@ -19,18 +19,18 @@ add_action( 'add_meta_boxes', 'custom_loop_add_inpost_meta_box', 10, 2 );
  *
  * @since 1.0.0
  *
- * @see custom_loop_inpost_meta_box() Generates the content in the meta box.
+ * @see genesis_page_templates_inpost_meta_box() Generates the content in the meta box.
  */
-function custom_loop_add_inpost_meta_box( $post_type, $post ) {
+function genesis_page_templates_add_inpost_meta_box( $post_type, $post ) {
 	if ( 'page' !== $post_type ) {
 		return false;
 	}
 
 	if ( 'custom_loop' === get_post_meta( $post->ID, '_wp_page_template', true ) ) {
 		add_meta_box(
-			'custom_loop_inpost_meta_box',
+			'genesis_page_templates_inpost_meta_box',
 			__( 'Custom Loop Settings', 'genesis-page-templates' ),
-			'custom_loop_inpost_meta_box',
+			'genesis_page_templates_inpost_meta_box',
 			'page',
 			'normal',
 			'high'
@@ -43,9 +43,9 @@ function custom_loop_add_inpost_meta_box( $post_type, $post ) {
  *
  * @since 1.0.0
  */
-function custom_loop_inpost_meta_box() {
+function genesis_page_templates_inpost_meta_box() {
 
-	wp_nonce_field( 'custom_loop_inpost_meta_save', 'custom_loop_inpost_meta_nonce' );
+	wp_nonce_field( 'genesis_page_templates_inpost_meta_save', 'genesis_page_templates_inpost_meta_nonce' );
 
 	?>
 
@@ -72,7 +72,7 @@ function custom_loop_inpost_meta_box() {
 	<?php
 }
 
-add_action( 'save_post', 'custom_loop_inpost_meta_save', 1, 2 );
+add_action( 'save_post', 'genesis_page_templates_inpost_meta_save', 1, 2 );
 /**
  * Save the settings when we save a post or page.
  *
@@ -83,8 +83,8 @@ add_action( 'save_post', 'custom_loop_inpost_meta_save', 1, 2 );
  *
  * @return null
  */
-function custom_loop_inpost_meta_save( $post_id, $post ) {
-	if ( ! isset( $_POST['genesis_custom_loop'] ) || ! check_admin_referer( 'custom_loop_inpost_meta_save', 'custom_loop_inpost_meta_nonce' ) ) {
+function genesis_page_templates_inpost_meta_save( $post_id, $post ) {
+	if ( ! isset( $_POST['genesis_custom_loop'] ) || ! check_admin_referer( 'genesis_page_templates_inpost_meta_save', 'genesis_page_templates_inpost_meta_nonce' ) ) {
 		return false;
 	}
 
@@ -110,5 +110,5 @@ function custom_loop_inpost_meta_save( $post_id, $post ) {
 		}
 	}
 
-	genesis_save_custom_fields( $clean_data, 'custom_loop_inpost_meta_save', 'custom_loop_inpost_meta_nonce', $post );
+	genesis_save_custom_fields( $clean_data, 'genesis_page_templates_inpost_meta_save', 'genesis_page_templates_inpost_meta_nonce', $post );
 }
