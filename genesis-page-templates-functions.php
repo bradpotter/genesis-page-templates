@@ -23,7 +23,7 @@ function genesis_page_templates_add_page_template( $page_templates ) {
 	return $page_templates;
 }
 
-add_action( 'template_include', 'genesis_page_templates_include_page_template' );
+add_filter( 'template_include', 'genesis_page_templates_include_page_template' );
 /**
  * Modify page based on selected page template.
  *
