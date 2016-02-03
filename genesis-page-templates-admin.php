@@ -84,28 +84,31 @@ add_action( 'save_post', 'custom_loop_inpost_meta_save', 1, 2 );
  * @return null
  */
 function custom_loop_inpost_meta_save( $post_id, $post ) {
+	if ( ! isset( $_POST['genesis_custom_loop'] ) || ! check_admin_referer( 'custom_loop_inpost_meta_save', 'custom_loop_inpost_meta_nonce' ) ) {
+		return false;
+	}
 
-	if ( ! isset( $_POST['genesis_custom_loop'] ) )
-		return;
+	$data = wp_unslash( $_POST['genesis_custom_loop'] );
 
-	// Merge user submitted options with fallback defaults
 	$defaults = array(
-		'_gcl_post_type'        => '',
-		'_gcl_taxonomy'         => '',
-		'_gcl_tax_term'         => '',
-		'_gcl_posts_per_page'   => '',
-		'_gcl_order_by'         => '',
-		'_gcl_order'            => '',
+		'_gcl_post_type'      => '',
+		'_gcl_taxonomy'       => '',
+		'_gcl_tax_term'       => '',
+		'_gcl_posts_per_page' => '',
+		'_gcl_order_by'       => '',
+		'_gcl_order'          => '',
 	);
 
-	$data = wp_parse_args( $_POST['genesis_custom_loop'], $defaults );
+	// Merge user submitted options with fallback defaults.
+	$data = wp_parse_args( $data, $defaults );
+
 	$clean_data = array();
 
 	foreach ( (array) $data as $key => $value ) {
-		if ( in_array( $key, array_keys( $defaults ) ) )
+		if ( in_array( $key, array_keys( $defaults ), true ) ) {
 			$clean_data[ $key ] = sanitize_text_field( $value );
+		}
 	}
 
 	genesis_save_custom_fields( $clean_data, 'custom_loop_inpost_meta_save', 'custom_loop_inpost_meta_nonce', $post );
-
 }
