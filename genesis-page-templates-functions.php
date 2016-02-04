@@ -33,7 +33,7 @@ function genesis_page_templates_include_page_template() {
 	$page_template = get_post_meta( get_the_ID(), '_wp_page_template', true );
 		
 	if ( 'custom_loop' == $page_template ) {
-		remove_action( 'genesis_loop', 'genesis_do_loop' );
+	
 		require_once plugin_dir_path( __FILE__ ) . '/templates/gpt-custom-loop.php';
 	}
 }
