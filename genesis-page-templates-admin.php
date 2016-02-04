@@ -8,7 +8,7 @@
  * @license    GPL-2.0+
  * @link       http://bradpotter.com/plugins/genesis-page-templates
  */
- 
+
 add_action( 'add_meta_boxes', 'genesis_page_templates_add_inpost_meta_box', 10, 2 );
 /**
  * Register a new meta box to the page edit screen.
@@ -22,7 +22,7 @@ add_action( 'add_meta_boxes', 'genesis_page_templates_add_inpost_meta_box', 10, 
  * @see genesis_page_templates_inpost_meta_box() Generates the content in the meta box.
  */
 function genesis_page_templates_add_inpost_meta_box( $post_type, $post ) {
-	
+
 	if ( 'page' !== $post_type ) {
 		return false;
 	}
@@ -121,10 +121,10 @@ function genesis_page_templates_inpost_meta_save( $post_id, $post ) {
 	$clean_data = array();
 
 	foreach ( (array) $data as $key => $value ) {
-		if ( in_array( $key, array_keys( $defaults ), true ) )
+		if ( in_array( $key, array_keys( $defaults ), true ) ) {
 			$clean_data[ $key ] = sanitize_text_field( $value );
+		}
 	}
 
 	genesis_save_custom_fields( $clean_data, 'genesis_page_templates_inpost_meta_save', 'genesis_page_templates_inpost_meta_nonce', $post );
-
 }

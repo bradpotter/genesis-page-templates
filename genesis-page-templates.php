@@ -20,27 +20,30 @@
  * Text Domain: genesis-page-templates
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
-register_activation_hook( __FILE__, 'genesis_page_templates_activation' );
+add_action( 'admin_notices', 'genesis_page_templates_notice_requires' );
 /**
- * Ensure Genesis is active, and that the version is not less than 2.0.0.
- *
- * If not, the plugin deactivates itself.
+ * Add a notice if Genesis isn't active, or the version is less than 2.0.0.
  *
  * @since 1.0.0
  */
-function genesis_page_templates_activation() {
-	
-	if ( ! defined( 'PARENT_THEME_VERSION' ) || version_compare( PARENT_THEME_VERSION, '2.0.0', '<' ) ) {
-		deactivate_plugins( plugin_basename( __FILE__ ) );
-		wp_die(
-			sprintf(
-				__( 'Sorry, you cannot run Genesis Page Templates without <a href="%s">Genesis 2.0.0</a>, or greater.', 'genesis-page-templates' ),
-				'http://bradpotter.com/go/genesis'
-			)
-		);
+function genesis_page_templates_notice_requires() {
+	if ( defined( 'PARENT_THEME_VERSION' ) && version_compare( PARENT_THEME_VERSION, '2.0.0', '>' ) ) {
+		return false;
 	}
+	?>
+	<div class="error">
+		<p>
+			<?php
+			printf(
+				__( 'Genesis Page Templates requires <a href="%s">Genesis 2.0.0</a>, or greater to function.', 'genesis-page-templates' ),
+				'http://bradpotter.com/go/genesis'
+			);
+			?>
+		</p>
+	</div>
+	<?php
 }
 
 add_action( 'genesis_init', 'genesis_page_templates_init', 15 );
