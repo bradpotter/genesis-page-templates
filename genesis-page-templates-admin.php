@@ -9,7 +9,7 @@
  * @link       http://bradpotter.com/plugins/genesis-page-templates
  */
  
-add_action( 'add_meta_boxes', 'custom_loop_add_inpost_meta_box' );
+add_action( 'add_meta_boxes', 'genesis_page_templates_add_inpost_meta_box', 10, 2 );
 /**
  * Register a new meta box to the page edit screen.
  *
@@ -19,14 +19,23 @@ add_action( 'add_meta_boxes', 'custom_loop_add_inpost_meta_box' );
  *
  * @since 1.0.0
  *
- * @see custom_loop_inpost_meta_box() Generates the content in the meta box.
+ * @see genesis_page_templates_inpost_meta_box() Generates the content in the meta box.
  */
-function custom_loop_add_inpost_meta_box() {
+function genesis_page_templates_add_inpost_meta_box( $post_type, $post ) {
 	
-	$page_template = get_post_meta( get_the_ID(), '_wp_page_template', true );
-		
-	if ( 'custom_loop' == $page_template ) {
-		add_meta_box( 'custom_loop_inpost_meta_box', __( 'Custom Loop Settings', 'genesis-page-templates' ), 'custom_loop_inpost_meta_box', 'page', 'normal', 'high' );
+	if ( 'page' !== $post_type ) {
+		return false;
+	}
+	
+	if ( 'custom_loop' === get_post_meta( $post->ID, '_wp_page_template', true ) ) {
+		add_meta_box(
+			'genesis_page_templates_inpost_meta_box',
+			__( 'Custom Loop Settings', 'genesis-page-templates' ),
+			'genesis_page_templates_inpost_meta_box',
+			'page',
+			'normal',
+			'high'
+		);
 	}
 }
 
@@ -35,9 +44,9 @@ function custom_loop_add_inpost_meta_box() {
  *
  * @since 1.0.0
  */
-function custom_loop_inpost_meta_box() {
+function genesis_page_templates_inpost_meta_box() {
 
-	wp_nonce_field( 'custom_loop_inpost_meta_save', 'custom_loop_inpost_meta_nonce' );
+	wp_nonce_field( 'genesis_page_templates_inpost_meta_save', 'genesis_page_templates_inpost_meta_nonce' );
 
 	?>
 
@@ -59,12 +68,24 @@ function custom_loop_inpost_meta_box() {
 	<p><label for="gcl_order"><b><?php _e( 'Order', 'genesis-page-templates' ); ?></b> <?php _e( '(Enter ASC or DESC)', 'genesis-page-templates' ); ?></label></p>
 	<p><input class="large-text" type="text" name="genesis_custom_loop[_gcl_order]" id="gcl_order" placeholder="" value="<?php echo esc_attr( genesis_get_custom_field( '_gcl_order' ) ); ?>" /></p>
 	
+	<p><label for="gcl_post_info"><b><?php _e( 'Display Post Info', 'genesis-page-templates' ); ?></b> <?php _e( '', 'genesis-page-templates' ); ?></label></p>
+	<select name="genesis_custom_loop[_gcl_post_info]" id="gcl_post_info" />
+	<option value="yes"<?php selected( genesis_get_custom_field( '_gcl_post_info' ), 'yes' ); ?>><?php _e( 'Yes', 'genesis-page-templates' ); ?></option>
+	<option value="no"<?php selected( genesis_get_custom_field( '_gcl_post_info' ), 'no' ); ?>><?php _e( 'No', 'genesis-page-templates' ); ?></option>
+	</select>
+	
+	<p><label for="gcl_post_meta"><b><?php _e( 'Display Post Meta', 'genesis-page-templates' ); ?></b> <?php _e( '', 'genesis-page-templates' ); ?></label></p>
+	<select name="genesis_custom_loop[_gcl_post_meta]" id="gcl_post_meta" />
+	<option value="yes"<?php selected( genesis_get_custom_field( '_gcl_post_meta' ), 'yes' ); ?>><?php _e( 'Yes', 'genesis-page-templates' ); ?></option>
+	<option value="no"<?php selected( genesis_get_custom_field( '_gcl_post_meta' ), 'no' ); ?>><?php _e( 'No', 'genesis-page-templates' ); ?></option>
+	</select>
+	
 	<p><?php _e( 'See the <a href="https://codex.wordpress.org/Class_Reference/WP_Query#Parameters"/>WordPress Codex</a> for a complete list of parameters to use.', 'genesis-page-templates' ); ?></p>
 
 	<?php
 }
 
-add_action( 'save_post', 'custom_loop_inpost_meta_save', 1, 2 );
+add_action( 'save_post', 'genesis_page_templates_inpost_meta_save', 1, 2 );
 /**
  * Save the settings when we save a post or page.
  *
@@ -75,12 +96,14 @@ add_action( 'save_post', 'custom_loop_inpost_meta_save', 1, 2 );
  *
  * @return null
  */
-function custom_loop_inpost_meta_save( $post_id, $post ) {
+function genesis_page_templates_inpost_meta_save( $post_id, $post ) {
 
-	if ( ! isset( $_POST['genesis_custom_loop'] ) )
-		return;
+	if ( ! isset( $_POST['genesis_custom_loop'] ) || ! check_admin_referer( 'genesis_page_templates_inpost_meta_save', 'genesis_page_templates_inpost_meta_nonce' ) ) {
+		return false;
+	}
 
-	// Merge user submitted options with fallback defaults
+	$data = wp_unslash( $_POST['genesis_custom_loop'] );
+	
 	$defaults = array(
 		'_gcl_post_type'        => '',
 		'_gcl_taxonomy'         => '',
@@ -88,16 +111,20 @@ function custom_loop_inpost_meta_save( $post_id, $post ) {
 		'_gcl_posts_per_page'   => '',
 		'_gcl_order_by'         => '',
 		'_gcl_order'            => '',
+		'_gcl_post_info'        => '',
+		'_gcl_post_meta'        => '',
 	);
 
-	$data = wp_parse_args( $_POST['genesis_custom_loop'], $defaults );
+	// Merge user submitted options with fallback defaults.
+	$data = wp_parse_args( $data, $defaults );
+	
 	$clean_data = array();
 
 	foreach ( (array) $data as $key => $value ) {
-		if ( in_array( $key, array_keys( $defaults ) ) )
+		if ( in_array( $key, array_keys( $defaults ), true ) )
 			$clean_data[ $key ] = sanitize_text_field( $value );
 	}
 
-	genesis_save_custom_fields( $clean_data, 'custom_loop_inpost_meta_save', 'custom_loop_inpost_meta_nonce', $post );
+	genesis_save_custom_fields( $clean_data, 'genesis_page_templates_inpost_meta_save', 'genesis_page_templates_inpost_meta_nonce', $post );
 
 }
