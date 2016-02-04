@@ -66,7 +66,7 @@ Introduce additional page templates. Update post type, taxonomy and taxonomy ter
 ## Credits
 
 Thanks to to [Ryan Hellyer](https://twitter.com/ryanhellyer) for his [recent post](https://geek.hellyer.kiwi/2016/01/20/dynamic-page-templates-in-wordpress-4-4/) on how to use the theme_page_templates filter.
-Thanks to [Rob Nue](https://twitter.com/rob_neu) who helped to solve an issue with the custom loop.
+Thanks to [Rob Nue](https://twitter.com/rob_neu) who has helped to improve the plugin's code.
 Thanks to [Tonya Mork](https://twitter.com/hellofromTonya) who is always willing to explain the code.
 Thanks to [Gary Jones](http://gamajo.com) for his encouragement to make my very first plugin 3 years ago.
 
