@@ -22,17 +22,6 @@ function genesis_page_templates_custom_loop() {
     global $paged;
     global $query_args;
     
-    $gcl_post_info = esc_attr( genesis_get_custom_field( '_gcl_post_info' ) );
-    $gcl_post_meta = esc_attr( genesis_get_custom_field( '_gcl_post_meta' ) );
-    
-    if ( 'no' == $gcl_post_info ) {
-    	remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
-    }
-    
-    if ( 'no' == $gcl_post_meta ) {
-    	remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
-    }
-    
 	$gcl_post_type = esc_attr( genesis_get_custom_field( '_gcl_post_type' ) );
     $gcl_taxonomy = esc_attr( genesis_get_custom_field( '_gcl_taxonomy' ) );
     $gcl_tax_term = esc_attr( genesis_get_custom_field( '_gcl_tax_term' ) );
@@ -78,4 +67,34 @@ function genesis_page_templates_custom_loop() {
 	}
 	
 	genesis_custom_loop( wp_parse_args( $query_args, $args ) );
+}
+
+add_action( 'genesis_before_loop', 'genesis_page_templates_post_info' );
+/**
+ * Genesis Page Templates custom loop post info control.
+ * 
+ * @since 1.0.1
+ */
+function genesis_page_templates_post_info() {
+    
+    $gcl_post_info = esc_attr( genesis_get_custom_field( '_gcl_post_info' ) );
+    
+    if ( 'no' == $gcl_post_info ) {
+    	remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
+    }
+}
+
+add_action( 'genesis_before_loop', 'genesis_page_templates_post_meta' );
+/**
+ * Genesis Page Templates custom loop post meta control.
+ * 
+ * @since 1.0.1
+ */
+function genesis_page_templates_post_meta() {
+    
+    $gcl_post_meta = esc_attr( genesis_get_custom_field( '_gcl_post_meta' ) );
+    
+    if ( 'no' == $gcl_post_meta ) {
+    	remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
+    }
 }
