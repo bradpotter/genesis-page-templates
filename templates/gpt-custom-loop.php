@@ -19,7 +19,7 @@ add_action( 'genesis_loop', 'genesis_page_templates_custom_loop' );
  */
 function genesis_page_templates_custom_loop() {
 	
-	global $paged;
+    global $paged;
     global $query_args;
     
     $gcl_post_type = esc_attr( genesis_get_custom_field( '_gcl_post_type' ) );
