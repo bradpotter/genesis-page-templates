@@ -27,7 +27,7 @@ function genesis_page_templates_custom_loop() {
     $gcl_tax_term = esc_attr( genesis_get_custom_field( '_gcl_tax_term' ) );
     $gcl_posts_per_page = esc_attr( genesis_get_custom_field( '_gcl_posts_per_page' ) );
     $gcl_order_by = esc_attr( genesis_get_custom_field( '_gcl_order_by' ) );
-	$gcl_order = esc_attr( genesis_get_custom_field( '_gcl_order' ) );
+    $gcl_order = esc_attr( genesis_get_custom_field( '_gcl_order' ) );
 	
 	$args = array(
 		'post_type'        => $gcl_post_type,
