@@ -18,13 +18,12 @@ add_filter( 'theme_page_templates', 'genesis_page_templates_add_page_template' )
  * @return array $page_templates The modified page templates.
  */
 function genesis_page_templates_add_page_template( $page_templates ) {
-		
 	$page_templates['custom_loop'] = __( 'Custom Loop', 'genesis-page-templates' );
-		
+	
 	return $page_templates;
 }
 
-add_action( 'template_redirect', 'genesis_page_templates_include_page_template' );
+add_filter( 'template_include', 'genesis_page_templates_include_page_template' );
 /**
  * Modify page based on selected page template.
  *
@@ -33,10 +32,8 @@ add_action( 'template_redirect', 'genesis_page_templates_include_page_template' 
  * @return string $template The modified template path to be included.
  */
 function genesis_page_templates_include_page_template( $template ) {
-		
 	if ( 'custom_loop' === get_post_meta( get_the_ID(), '_wp_page_template', true ) ) {
-	
-		$template = require_once plugin_dir_path( __FILE__ ) . '/templates/gpt-custom-loop.php';
+		$template = plugin_dir_path( __FILE__ ) . '/templates/gpt-custom-loop.php';
 	}
 	
 	return $template;

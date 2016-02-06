@@ -18,16 +18,16 @@ add_action( 'genesis_loop', 'genesis_page_templates_custom_loop' );
  * @since 1.0.1
  */
 function genesis_page_templates_custom_loop() {
-
-    global $paged;
+	
+	global $paged;
     global $query_args;
     
-	$gcl_post_type = esc_attr( genesis_get_custom_field( '_gcl_post_type' ) );
+    $gcl_post_type = esc_attr( genesis_get_custom_field( '_gcl_post_type' ) );
     $gcl_taxonomy = esc_attr( genesis_get_custom_field( '_gcl_taxonomy' ) );
     $gcl_tax_term = esc_attr( genesis_get_custom_field( '_gcl_tax_term' ) );
     $gcl_posts_per_page = esc_attr( genesis_get_custom_field( '_gcl_posts_per_page' ) );
     $gcl_order_by = esc_attr( genesis_get_custom_field( '_gcl_order_by' ) );
-    $gcl_order = esc_attr( genesis_get_custom_field( '_gcl_order' ) );
+	$gcl_order = esc_attr( genesis_get_custom_field( '_gcl_order' ) );
 	
 	$args = array(
 		'post_type'        => $gcl_post_type,
@@ -98,3 +98,5 @@ function genesis_page_templates_post_meta() {
     	remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
     }
 }
+
+genesis();
