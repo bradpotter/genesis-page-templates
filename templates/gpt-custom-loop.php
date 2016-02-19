@@ -10,7 +10,6 @@
  */
 
 remove_action( 'genesis_loop', 'genesis_do_loop' );
-
 add_action( 'genesis_loop', 'genesis_page_templates_custom_loop' );
 /**
  * Genesis Page Templates Custom Loop.
@@ -18,9 +17,8 @@ add_action( 'genesis_loop', 'genesis_page_templates_custom_loop' );
  * @since 1.0.1
  */
 function genesis_page_templates_custom_loop() {
-	
-	global $paged;
-	global $query_args;
+    
+	global $paged, $query_args;
     
 	$gcl_post_type = esc_attr( genesis_get_custom_field( '_gcl_post_type' ) );
 	$gcl_taxonomy = esc_attr( genesis_get_custom_field( '_gcl_taxonomy' ) );
