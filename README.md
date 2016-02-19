@@ -64,8 +64,7 @@ Note: Since this is the initial release of the plugin I discourage using it on a
 Introduce additional page templates. Update post type, taxonomy and taxonomy terms to accept multiple parameters. Add additional settings options. Change some settings options to drop down menus.
 
 ## Contributors
-[Rob Nue](https://twitter.com/rob_neu)
-[Tonya Mork](https://twitter.com/hellofromTonya)
+[Rob Nue](https://twitter.com/rob_neu), [Tonya Mork](https://twitter.com/hellofromTonya)
 
 ## Credits
 
